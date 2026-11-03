@@ -1,6 +1,6 @@
 {
   "name": "kanban-planner",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A local kanban dashboard for planning work: turn a high-level goal into actionable requirement cards, track them through Backlog/In Progress/Pending Review/Done, and leave comments that Claude turns into real changes.",
   "author": {
     "name": "Your Name"

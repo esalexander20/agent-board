@@ -3,9 +3,17 @@
 A local kanban dashboard for planning work, built as a Claude Code plugin.
 
 Type a high-level goal into the board, and Claude breaks it down into small, actionable
-cards. Leave a comment on any card as a change request, and Claude reads and acts on it —
-editing the card, moving it, or making a real change elsewhere in your project — then
+cards — each with a short "what to build" description and an acceptance-criteria
+checklist. Leave a comment on any card as a change request, and Claude reads and acts on
+it — editing the card, moving it, or making a real change elsewhere in your project — then
 replies on the card so the loop stays visible.
+
+Comment **"implement this"** (or "build this", "ship this card", etc.) on a card, and
+Claude runs its `implement` skill against it: it writes the code (test-first where the
+project has a test suite), runs typecheck/tests, reviews its own diff, and **commits to
+the current branch automatically** — then moves the card to Pending Review and ticks off
+its acceptance criteria. This is adapted from [Matt Pocock's `implement`
+skill](https://github.com/mattpocock/skills), scoped down to a single kanban card.
 
 ## How it works
 
@@ -27,8 +35,13 @@ replies on the card so the loop stays visible.
 - In the dashboard: click **+ New Plan** to describe a goal, or **+ New Card** to add a
   task manually. Expand any card to leave a comment.
 - `/kanban-planner:sync` — ask Claude to break down any newly submitted plans into cards,
-  and to act on any new unprocessed comments.
+  and to act on any new unprocessed comments (including running `implement` on any card
+  commented "implement this").
 - `/kanban-planner:stop` — stop the dashboard server for the current project.
+
+> **Heads up:** an "implement this"-style comment causes Claude to actually write code and
+> commit it to your current branch, without asking for confirmation first. Don't leave
+> that comment on a card unless you want that to happen.
 
 ## Data
 

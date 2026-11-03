@@ -66,6 +66,29 @@
     node.querySelector('.card-title').textContent = card.title;
     node.querySelector('.card-description').textContent = card.description || '';
 
+    const criteria = Array.isArray(card.acceptanceCriteria) ? card.acceptanceCriteria : [];
+    if (criteria.length > 0) {
+      const criteriaBlock = node.querySelector('.card-criteria');
+      criteriaBlock.hidden = false;
+      const done = criteria.filter((c) => c.done).length;
+      criteriaBlock.querySelector('.card-criteria-label').textContent =
+        `Acceptance criteria (${done}/${criteria.length})`;
+      const list = criteriaBlock.querySelector('.card-criteria-list');
+      for (const item of criteria) {
+        const li = document.createElement('li');
+        li.className = 'criterion' + (item.done ? ' criterion-done' : '');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = !!item.done;
+        checkbox.disabled = true;
+        const label = document.createElement('span');
+        label.textContent = item.text || '';
+        li.appendChild(checkbox);
+        li.appendChild(label);
+        list.appendChild(li);
+      }
+    }
+
     const select = node.querySelector('.card-column-select');
     select.value = card.column;
     select.addEventListener('change', async () => {
