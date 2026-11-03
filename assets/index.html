@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kanban Planner</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <h1 id="project-name">Kanban Planner</h1>
+  <div class="topbar-actions">
+    <button id="new-plan-btn" class="btn btn-primary">+ New Plan</button>
+    <button id="new-card-btn" class="btn">+ New Card</button>
+  </div>
+</header>
+
+<div id="toast" class="toast" hidden></div>
+
+<main id="board" class="board">
+  <section class="column" data-column="backlog">
+    <div class="column-header">
+      <span class="column-title">Backlog</span>
+      <span class="column-count" data-count="backlog">0</span>
+    </div>
+    <div class="cards" data-cards="backlog"></div>
+  </section>
+  <section class="column" data-column="in_progress">
+    <div class="column-header">
+      <span class="column-title">In Progress</span>
+      <span class="column-count" data-count="in_progress">0</span>
+    </div>
+    <div class="cards" data-cards="in_progress"></div>
+  </section>
+  <section class="column" data-column="pending_review">
+    <div class="column-header">
+      <span class="column-title">Pending Review</span>
+      <span class="column-count" data-count="pending_review">0</span>
+    </div>
+    <div class="cards" data-cards="pending_review"></div>
+  </section>
+  <section class="column" data-column="done">
+    <div class="column-header">
+      <span class="column-title">Done</span>
+      <span class="column-count" data-count="done">0</span>
+    </div>
+    <div class="cards" data-cards="done"></div>
+  </section>
+</main>
+
+<div id="modal-backdrop" class="modal-backdrop" hidden>
+  <div id="plan-modal" class="modal" hidden>
+    <h2>New Plan</h2>
+    <p class="modal-hint">Describe a high-level goal. Claude will break it into cards next time the board is synced.</p>
+    <textarea id="plan-goal" rows="4" placeholder="e.g. Add user authentication to the app"></textarea>
+    <div class="modal-actions">
+      <button class="btn" data-cancel>Cancel</button>
+      <button id="submit-plan-btn" class="btn btn-primary">Save Plan</button>
+    </div>
+  </div>
+
+  <div id="card-modal" class="modal" hidden>
+    <h2>New Card</h2>
+    <input id="card-title" type="text" placeholder="Title">
+    <textarea id="card-description" rows="3" placeholder="Description (optional)"></textarea>
+    <label for="card-column">Column</label>
+    <select id="card-column">
+      <option value="backlog">Backlog</option>
+      <option value="in_progress">In Progress</option>
+      <option value="pending_review">Pending Review</option>
+      <option value="done">Done</option>
+    </select>
+    <div class="modal-actions">
+      <button class="btn" data-cancel>Cancel</button>
+      <button id="submit-card-btn" class="btn btn-primary">Add Card</button>
+    </div>
+  </div>
+</div>
+
+<template id="card-template">
+  <article class="card">
+    <div class="card-main">
+      <h3 class="card-title"></h3>
+      <p class="card-description"></p>
+      <div class="card-controls">
+        <select class="card-column-select">
+          <option value="backlog">Backlog</option>
+          <option value="in_progress">In Progress</option>
+          <option value="pending_review">Pending Review</option>
+          <option value="done">Done</option>
+        </select>
+        <button class="card-comments-toggle">
+          <span class="comment-icon">&#128172;</span>
+          <span class="comment-count"></span>
+        </button>
+      </div>
+    </div>
+    <div class="card-comments" hidden>
+      <div class="comment-list"></div>
+      <div class="comment-add">
+        <textarea class="comment-input" rows="2" placeholder="Leave a comment or change request..."></textarea>
+        <button class="btn btn-small comment-submit">Add comment</button>
+      </div>
+    </div>
+  </article>
+</template>
+
+<template id="comment-template">
+  <div class="comment">
+    <div class="comment-meta">
+      <span class="comment-author"></span>
+      <span class="comment-status"></span>
+    </div>
+    <p class="comment-text"></p>
+  </div>
+</template>
+
+<script src="app.js" defer></script>
+</body>
+</html>
