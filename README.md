@@ -15,6 +15,24 @@ the current branch automatically** — then moves the card to Pending Review and
 its acceptance criteria. This is adapted from [Matt Pocock's `implement`
 skill](https://github.com/mattpocock/skills), scoped down to a single kanban card.
 
+## Install
+
+In a Claude Code session:
+```
+/plugin marketplace add esalexander20/agent-board
+/plugin install kanban-planner@agent-board
+```
+Or from your shell:
+```bash
+claude plugin marketplace add esalexander20/agent-board
+claude plugin install kanban-planner@agent-board
+```
+Confirm it loaded: type `/` and look for `/kanban-planner:start`, `/kanban-planner:sync`,
+and `/kanban-planner:stop`.
+
+To try it from a local clone without installing, start Claude Code with
+`claude --plugin-dir /path/to/agent-board` instead — this loads it for one session only.
+
 ## How it works
 
 - **A local Node.js server** (zero npm dependencies) serves the dashboard UI in your

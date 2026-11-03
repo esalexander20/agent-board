@@ -1,0 +1,16 @@
+{
+  "name": "agent-board",
+  "owner": {
+    "name": "Garappge-CTO"
+  },
+  "description": "Garappge-CTO's Claude Code plugins.",
+  "plugins": [
+    {
+      "name": "kanban-planner",
+      "source": "./",
+      "description": "A local kanban dashboard for planning work: turn a high-level goal into actionable requirement cards, track them through Backlog/In Progress/Pending Review/Done, leave comments that Claude turns into real changes, and have Claude implement a card test-first with a single comment.",
+      "category": "engineering",
+      "keywords": ["kanban", "planning", "dashboard", "tickets", "tdd"]
+    }
+  ]
+}
